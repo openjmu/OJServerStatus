@@ -12,6 +12,6 @@ class API {
     "middle": "https://middle99.jmu.edu.cn/",
     "upApi": "https://upapi.jmu.edu.cn/",
     "labs": "http://labs.jmu.edu.cn/CourseSchedule/course.html",
-    "push": "http://push.openjmu.xyz:8787"
+    "push": "http://push.openjmu.xyz:8787/push"
   };
 }
