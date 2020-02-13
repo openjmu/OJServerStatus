@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'OpenJMU服务状态',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepOrange,
       ),
       home: MyHomePage(),
     );
@@ -41,20 +41,20 @@ class _MyHomePageState extends State<MyHomePage> {
   Map<String, String> hostsError = {
     for (String key in API.hosts.keys) key: null,
   };
-  Timer timer;
+  //Timer timer;
 
   @override
   void initState() {
     requestStatus();
-    timer ??= Timer.periodic(const Duration(seconds: 20), (_) {
-      requestStatus();
-    });
+    //timer ??= Timer.periodic(const Duration(seconds: 20), (_) {
+    //requestStatus();
+    //});
     super.initState();
   }
 
   @override
   void dispose() {
-    timer?.cancel();
+    //timer?.cancel();
     super.dispose();
   }
 
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Future.wait(
       List<Future>.generate(
         API.hosts.keys.length,
-        (index) {
+            (index) {
           final key = API.hosts.keys.elementAt(index);
           final request = API.hosts[key];
           return NetUtils.get(request).then((response) {
@@ -101,16 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Server status"),
+        title: Text("OpenJMU服务状态"),
+        backgroundColor: Colors.deepOrange,
         centerTitle: true,
-        actions: <Widget>[
-          if (requesting)
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: CupertinoActivityIndicator(),
-            ),
-        ],
+        actions: <Widget>[if (requesting)Padding(padding: const EdgeInsets.all(16.0), child: CupertinoActivityIndicator(),),],
       ),
+      floatingActionButton: FloatingActionButton(onPressed: requestStatus, child: Icon(Icons.refresh),tooltip: "刷新状态",),
       body: Center(
         child: ListView(
           children: <Widget>[
